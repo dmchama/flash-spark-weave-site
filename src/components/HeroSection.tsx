@@ -5,6 +5,7 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 
 const HeroSection: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const animationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -14,6 +15,19 @@ const HeroSection: React.FC = () => {
         const y = (e.clientY - top) / height - 0.5;
         
         titleRef.current.style.transform = `perspective(1000px) rotateX(${y * 5}deg) rotateY(${x * 5}deg)`;
+      }
+      
+      // Parallax effect for floating elements
+      if (animationRef.current) {
+        const { left, top, width, height } = animationRef.current.getBoundingClientRect();
+        const x = (e.clientX - left - width / 2) / 25;
+        const y = (e.clientY - top - height / 2) / 25;
+        
+        const elements = animationRef.current.querySelectorAll('.floating-element');
+        elements.forEach((el, i) => {
+          const depth = 1 - i * 0.2; // Different depth for each element
+          (el as HTMLElement).style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+        });
       }
     };
 
@@ -73,28 +87,83 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           
+          {/* New animated design */}
           <div className="relative">
-            <div className="aspect-square w-full max-w-md mx-auto">
+            <div 
+              ref={animationRef} 
+              className="aspect-square w-full max-w-md mx-auto relative"
+            >
+              {/* Animated background glow */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-64 h-64 rounded-full bg-secondary/20 animate-pulse blur-3xl absolute" />
-                <div className="w-48 h-48 rounded-full bg-primary/30 animate-pulse animate-delay-300 blur-3xl absolute" />
-                <div className="w-72 h-72 rounded-full bg-accent/20 animate-pulse animate-delay-500 blur-3xl absolute" />
+                <div className="w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse absolute" />
+                <div className="w-64 h-64 rounded-full bg-secondary/20 blur-3xl animate-pulse animate-delay-300 absolute" />
+                <div className="w-72 h-72 rounded-full bg-accent/15 blur-3xl animate-pulse animate-delay-500 absolute" />
+              </div>
+              
+              {/* Interactive 3D elements */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                {/* Digital wave */}
+                <div className="absolute floating-element w-full h-32 overflow-hidden flex items-center">
+                  <svg viewBox="0 0 600 200" className="w-full">
+                    <path 
+                      className="animate-float fill-primary/20" 
+                      d="M-50,100 C100,180 350,50 600,120 L600,200 L-50,200 Z"
+                    />
+                    <path 
+                      className="animate-float animate-delay-300 fill-secondary/20" 
+                      d="M-50,80 C150,150 300,20 600,100 L600,200 L-50,200 Z"
+                    />
+                    <path 
+                      className="animate-float animate-delay-500 fill-accent/10" 
+                      d="M-50,60 C100,120 400,30 600,70 L600,200 L-50,200 Z"
+                    />
+                  </svg>
+                </div>
                 
-                {/* 3D Objects */}
-                <div className="relative h-64 w-64 flex items-center justify-center animate-float">
+                {/* Floating geometric shapes */}
+                <div className="w-full h-full relative">
                   {/* Cube */}
-                  <div className="absolute h-24 w-24 rounded-xl bg-gradient-to-br from-primary to-secondary animate-spin-slow">
-                    {/* Inner cube face */}
-                    <div className="absolute inset-2 bg-background/60 backdrop-blur-sm rounded-lg" />
+                  <div className="absolute floating-element top-1/4 left-1/4 h-24 w-24 animate-float">
+                    <div className="relative w-full h-full perspective-600">
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/80 to-secondary/60 animate-spin-slow">
+                        <div className="absolute inset-2 bg-background/80 rounded-lg backdrop-blur-sm" />
+                      </div>
+                    </div>
                   </div>
                   
-                  {/* Circle */}
-                  <div className="absolute h-16 w-16 rounded-full bg-gradient-to-br from-accent to-secondary animate-float animate-delay-300" />
+                  {/* Sphere */}
+                  <div className="absolute floating-element bottom-1/4 right-1/3 h-16 w-16 rounded-full bg-gradient-to-br from-secondary/80 to-accent/60 animate-float animate-delay-200">
+                    <div className="absolute inset-1 bg-background/50 rounded-full" />
+                    <div className="absolute -left-1 -top-1 w-6 h-6 rounded-full bg-white/10 blur-sm" />
+                  </div>
                   
-                  {/* Abstract shape */}
-                  <div className="absolute -right-10 bottom-4 h-20 w-6 rounded-full bg-gradient-to-t from-primary to-purple-300 rotate-45 animate-float animate-delay-500" />
+                  {/* Ring */}
+                  <div className="absolute floating-element top-1/3 right-1/4 h-28 w-28 rounded-full border-[8px] border-gradient-to-r from-primary/50 to-accent/30 animate-float animate-delay-400 rotate-45" />
+                  
+                  {/* Abstract line */}
+                  <div className="absolute floating-element bottom-1/4 left-1/3 h-20 w-2 rounded-full bg-gradient-to-t from-accent to-primary/40 animate-float animate-delay-300 rotate-[30deg]" />
+                  
+                  {/* Floating dots */}
+                  {[...Array(6)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute floating-element w-3 h-3 rounded-full bg-primary/80"
+                      style={{
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        animationDelay: `${i * 0.5}s`,
+                        animationDuration: `${3 + Math.random() * 4}s`
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Glowing circle */}
+                  <div className="absolute floating-element top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-cool opacity-20 blur-xl animate-pulse" />
                 </div>
               </div>
+              
+              {/* Center highlight */}
+              <div className="absolute floating-element top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/30 blur-md" />
             </div>
           </div>
         </div>

@@ -155,6 +155,18 @@
   .blur-bg {
     backdrop-filter: blur(8px);
   }
+
+  .perspective-600 {
+    perspective: 600px;
+  }
+
+  .border-gradient-to-r {
+    border-image: linear-gradient(to right, rgba(139, 92, 246, 0.5), rgba(236, 72, 153, 0.3)) 1;
+  }
+
+  .floating-element {
+    transition: transform 0.3s ease;
+  }
 }
 
 @keyframes gradient-animation {
