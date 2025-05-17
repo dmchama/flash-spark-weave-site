@@ -8,6 +8,7 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
 import MouseFollower from "@/components/MouseFollower";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const Index = () => {
   useEffect(() => {
@@ -28,18 +29,20 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen overflow-x-hidden">
-      <ParticleBackground />
-      <MouseFollower />
-      <Navbar />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="bg-background text-foreground min-h-screen overflow-x-hidden">
+        <ParticleBackground />
+        <MouseFollower />
+        <Navbar />
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <ServicesSection />
+          <ContactSection />
+        </main>
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 };
 
