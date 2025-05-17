@@ -121,8 +121,6 @@ const ServicesSection: React.FC = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl" style={{
                 backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-                '--tw-gradient-from': service.gradient.split(' ')[0].split('-')[1],
-                '--tw-gradient-to': service.gradient.split(' ')[2]
               }} />
               
               <div>
