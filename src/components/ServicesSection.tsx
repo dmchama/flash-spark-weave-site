@@ -5,6 +5,7 @@ import {
   PencilRuler, Shield, ArrowRight, Monitor 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const ServicesSection: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -43,49 +44,57 @@ const ServicesSection: React.FC = () => {
       icon: <Globe className="h-8 w-8" />,
       title: "Web Development",
       description: "Full-stack solutions with modern frameworks and responsive design.",
-      gradient: "from-blue-500 to-cyan-400"
+      gradient: "from-blue-500 to-cyan-400",
+      id: "web-development"
     },
     {
       icon: <Smartphone className="h-8 w-8" />,
       title: "Mobile Applications",
       description: "Native and cross-platform apps for iOS and Android devices.",
-      gradient: "from-green-400 to-emerald-500"
+      gradient: "from-green-400 to-emerald-500",
+      id: "mobile-applications"
     },
     {
       icon: <PencilRuler className="h-8 w-8" />,
       title: "UI/UX Design",
       description: "User-centered design that delights and engages your audience.",
-      gradient: "from-pink-500 to-purple-500"
+      gradient: "from-pink-500 to-purple-500",
+      id: "ui-ux-design"
     },
     {
       icon: <Code className="h-8 w-8" />,
       title: "Custom Software",
       description: "Tailored software solutions that address your specific needs.",
-      gradient: "from-amber-500 to-orange-500"
+      gradient: "from-amber-500 to-orange-500",
+      id: "custom-software"
     },
     {
       icon: <Shield className="h-8 w-8" />,
       title: "Cybersecurity",
       description: "Protecting your digital assets with advanced security measures.",
-      gradient: "from-red-500 to-pink-500"
+      gradient: "from-red-500 to-pink-500",
+      id: "cybersecurity"
     },
     {
       icon: <LineChart className="h-8 w-8" />,
       title: "Data Analytics",
       description: "Turn your data into actionable insights and strategic advantage.",
-      gradient: "from-violet-500 to-purple-600"
+      gradient: "from-violet-500 to-purple-600",
+      id: "data-analytics"
     },
     {
       icon: <Monitor className="h-8 w-8" />,
       title: "Digital Strategy",
       description: "Comprehensive digital roadmaps to achieve your business goals.",
-      gradient: "from-blue-600 to-indigo-600"
+      gradient: "from-blue-600 to-indigo-600",
+      id: "digital-strategy"
     },
     {
       icon: <ArrowRight className="h-8 w-8" />,
       title: "View All Services",
       description: "Explore our complete range of digital transformation services.",
-      gradient: "from-gray-700 to-gray-900"
+      gradient: "from-gray-700 to-gray-900",
+      id: "all-services"
     }
   ];
 
@@ -115,35 +124,36 @@ const ServicesSection: React.FC = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
         >
           {services.map((service, index) => (
-            <div
-              key={index}
-              className="group relative bg-card/30 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover-glow transition-all duration-300 h-64 flex flex-col justify-between opacity-0 translate-y-10"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl" style={{
-                backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-              }} />
-              
-              <div>
-                <div className={`inline-flex items-center justify-center rounded-lg p-3 bg-gradient-to-br ${service.gradient} mb-4 text-white`}>
-                  {service.icon}
+            <Link to={`/services/${service.id}`} key={index} className="block">
+              <div
+                className="group relative bg-card/30 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover-glow transition-all duration-300 h-64 flex flex-col justify-between opacity-0 translate-y-10"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl" />
+                
+                <div>
+                  <div className={`inline-flex items-center justify-center rounded-lg p-3 bg-gradient-to-br ${service.gradient} mb-4 text-white`}>
+                    {service.icon}
+                  </div>
+                  <h4 className="text-xl font-semibold mb-2">{service.title}</h4>
+                  <p className="text-sm text-muted-foreground">{service.description}</p>
                 </div>
-                <h4 className="text-xl font-semibold mb-2">{service.title}</h4>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
+                
+                <div className="mt-4 pt-4 border-t border-border/30 flex items-center justify-between text-sm">
+                  <span className="text-primary">Learn more</span>
+                  <ArrowRight className="h-4 w-4 text-primary transform group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              
-              <div className="mt-4 pt-4 border-t border-border/30 flex items-center justify-between text-sm">
-                <span className="text-primary">Learn more</span>
-                <ArrowRight className="h-4 w-4 text-primary transform group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
         
         <div className="mt-16 text-center">
-          <Button className="bg-gradient-cool hover:opacity-90 transition-opacity">
-            View All Services
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link to="/services">
+            <Button className="bg-gradient-cool hover:opacity-90 transition-opacity">
+              View All Services
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

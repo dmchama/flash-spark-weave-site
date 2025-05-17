@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,15 +48,17 @@ const Navbar = () => {
             <a
               key={item.name}
               href={item.href}
-              className="text-foreground/80 hover:text-foreground transition-colors duration-300 hover-glow font-medium"
+              className="text-foreground/80 hover:text-foreground bg-transparent hover:bg-accent/20 px-4 py-2 rounded-md transition-colors duration-300"
             >
               {item.name}
             </a>
           ))}
           <ThemeToggle />
-          <Button className="bg-gradient-cool hover:opacity-90 transition-opacity">
-            Get Started
-          </Button>
+          <Link to="/services">
+            <Button className="bg-gradient-cool hover:opacity-90 transition-opacity">
+              Get Started
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Navigation Toggle */}
@@ -90,18 +93,20 @@ const Navbar = () => {
             <a
               key={item.name}
               href={item.href}
-              className="text-xl font-medium text-foreground"
+              className="text-xl font-medium text-foreground bg-transparent hover:bg-accent/20 px-4 py-2 rounded-md transition-colors duration-300"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {item.name}
             </a>
           ))}
-          <Button
-            className="bg-gradient-cool hover:opacity-90 transition-opacity w-40 mt-4"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Get Started
-          </Button>
+          <Link to="/services">
+            <Button
+              className="bg-gradient-cool hover:opacity-90 transition-opacity w-40 mt-4"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Get Started
+            </Button>
+          </Link>
         </div>
       </div>
     </nav>
